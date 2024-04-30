@@ -90,7 +90,7 @@ class PhiConfig(PretrainedConfig):
             )
 
 
-class MoondreamConfig(PretrainedConfig):
+class RedbudConfig(PretrainedConfig):
     model_type = "redbud"
 
     def __init__(self, **kwargs):
