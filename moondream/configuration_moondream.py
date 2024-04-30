@@ -8,7 +8,7 @@ class PhiConfig(PretrainedConfig):
     def __init__(
         self,
         vocab_size=32064,
-        hidden_size=2048,
+        hidden_size=3072,
         intermediate_size=8192,
         num_hidden_layers=32,
         num_attention_heads=32,
