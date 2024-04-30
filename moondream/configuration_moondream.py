@@ -2,32 +2,32 @@ from transformers import PretrainedConfig
 
 
 class PhiConfig(PretrainedConfig):
-    model_type = "phi"
+    model_type = "phi3"
     keys_to_ignore_at_inference = ["past_key_values"]
 
     def __init__(
         self,
-        vocab_size=51200,
+        vocab_size=32064,
         hidden_size=2048,
         intermediate_size=8192,
-        num_hidden_layers=24,
+        num_hidden_layers=32,
         num_attention_heads=32,
         num_key_value_heads=None,
         resid_pdrop=0.0,
         embd_pdrop=0.0,
         attention_dropout=0.0,
-        hidden_act="gelu_new",
-        max_position_embeddings=2048,
+        hidden_act="silu",
+        max_position_embeddings=4096,
         initializer_range=0.02,
         layer_norm_eps=1e-5,
         use_cache=True,
         tie_word_embeddings=False,
         rope_theta=10000.0,
         rope_scaling=None,
-        partial_rotary_factor=0.5,
-        qk_layernorm=False,
         bos_token_id=1,
-        eos_token_id=2,
+        eos_token_id=32000,
+        pad_token_id=32000,
+        sliding_window=None,
         **kwargs,
     ):
         self.vocab_size = vocab_size
@@ -50,13 +50,13 @@ class PhiConfig(PretrainedConfig):
         self.use_cache = use_cache
         self.rope_theta = rope_theta
         self.rope_scaling = rope_scaling
-        self.partial_rotary_factor = partial_rotary_factor
-        self.qk_layernorm = qk_layernorm
         self._rope_scaling_validation()
+        self.sliding_window = sliding_window
 
         super().__init__(
             bos_token_id=bos_token_id,
             eos_token_id=eos_token_id,
+            pad_token_id=pad_token_id,
             tie_word_embeddings=tie_word_embeddings,
             **kwargs,
         )
@@ -91,7 +91,7 @@ class PhiConfig(PretrainedConfig):
 
 
 class MoondreamConfig(PretrainedConfig):
-    model_type = "moondream1"
+    model_type = "redbud"
 
     def __init__(self, **kwargs):
         self.text_config = PhiConfig(**kwargs.pop("text_config", {}))
